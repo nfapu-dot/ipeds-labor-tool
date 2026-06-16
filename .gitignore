@@ -24,5 +24,11 @@ output/reports/*.xlsx
 # only reads the extracted .xlsx, so keep the (large) zips out of the repo.
 data/raw_labor/oews/*.zip
 
+# Raw Completions A CSVs (40-59 MB each) — NOT tracked. The app reads the
+# compact data/processed/*.parquet instead (built by
+# scripts/build_processed_parquet.py). Kept locally to regenerate the parquet.
+# Excluding them keeps the repo under hosting file-size limits (e.g. HF Spaces).
+data/raw/c*_a.csv
+
 # Claude Code local config
 .claude/

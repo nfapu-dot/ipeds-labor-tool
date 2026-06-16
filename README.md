@@ -1,3 +1,14 @@
+---
+title: IPEDS Completions + Labor
+emoji: 📊
+colorFrom: red
+colorTo: gray
+sdk: streamlit
+sdk_version: 1.41.0
+app_file: src/app_v2.py
+pinned: false
+---
+
 # IPEDS Completions + Labor Market Tool (v2)
 
 Strategic-planning tool that joins **IPEDS Completions** (degrees conferred, by program
