@@ -67,14 +67,21 @@ def _read_table(
     path: Path,
     dtype: Optional[dict] = None,
     sheet_name: Optional[str] = None,
+    usecols: Optional[list] = None,
 ) -> pd.DataFrame:
-    """Route by extension. CSVs use latin-1 per IPEDS quirk rules."""
+    """Route by extension. CSVs use latin-1 per IPEDS quirk rules.
+
+    `usecols` restricts the read to specific columns. The Completions A files
+    carry ~60 race/sex breakdown columns the engine never uses; reading only
+    the required columns keeps memory in bounds on a constrained host (the
+    Streamlit Cloud free tier) without changing any output.
+    """
     suffix = path.suffix.lower()
     if suffix in ('.xlsx', '.xls'):
         # Default to the first sheet unless caller specifies one.
-        df = pd.read_excel(path, dtype=dtype, sheet_name=sheet_name or 0)
+        df = pd.read_excel(path, dtype=dtype, sheet_name=sheet_name or 0, usecols=usecols)
     elif suffix == '.csv':
-        df = pd.read_csv(path, encoding='latin-1', dtype=dtype, low_memory=False)
+        df = pd.read_csv(path, encoding='latin-1', dtype=dtype, low_memory=False, usecols=usecols)
     else:
         raise ValueError(f'Unsupported file extension for {path.name}: {path.suffix}')
     return _clean_columns(df)
@@ -172,7 +179,11 @@ def load_ca(year: int, raw_dir: Path) -> pd.DataFrame:
         raise FileNotFoundError(f'Missing C_A file for year {year} in {raw_dir}')
     console.log(f'[cyan]C_A {year}[/] ← {path.name}')
 
-    df = _read_table(path, dtype={'CIPCODE': str})
+    # Read only the columns the engine uses (see CA_REQUIRED_COLS). The C_A
+    # files have ~60 unused race/sex columns; skipping them at read time cuts
+    # peak memory enough to run on the Streamlit Cloud free tier. Output is
+    # unchanged — every consumed column is in CA_REQUIRED_COLS.
+    df = _read_table(path, dtype={'CIPCODE': str}, usecols=CA_REQUIRED_COLS)
     raw_rows = len(df)
 
     missing = [c for c in CA_REQUIRED_COLS if c not in df.columns]
