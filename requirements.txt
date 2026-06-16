@@ -1,4 +1,4 @@
-pandas>=2.0
+pandas>=2.0,<3.0  # pandas 3.0 breaks aggregator.py (.loc dtype coercion); matches v1
 openpyxl>=3.1
 pyyaml>=6.0
 rich>=13.0
