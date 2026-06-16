@@ -168,7 +168,25 @@ def load_hd(year: int, raw_dir: Path) -> pd.DataFrame:
 
 def load_ca(year: int, raw_dir: Path) -> pd.DataFrame:
     """
-    Load Completions A for `year`.
+    Load Completions A for `year`, with MAJORNUM == 1 already applied.
+
+    Prefers a preprocessed parquet at ``../processed/c{year}_a.parquet`` when
+    present: it holds exactly the cleaned, filtered frame ``_load_ca_from_csv``
+    produces, but reads in a fraction of the memory (no CSV parse transient).
+    That is what lets the app fit in Streamlit Cloud's 1 GB tier. Falls back to
+    parsing the raw CSV when the parquet is absent (e.g. after a fresh data
+    drop). Regenerate the parquet with ``scripts/build_processed_parquet.py``.
+    """
+    parquet_path = raw_dir.parent / 'processed' / f'c{year}_a.parquet'
+    if parquet_path.exists():
+        console.log(f'[cyan]C_A {year}[/] ← {parquet_path.name} (preprocessed)')
+        return pd.read_parquet(parquet_path)
+    return _load_ca_from_csv(year, raw_dir)
+
+
+def _load_ca_from_csv(year: int, raw_dir: Path) -> pd.DataFrame:
+    """
+    Load Completions A for `year` by parsing the raw IPEDS CSV.
 
     CRITICAL: applies MAJORNUM == 1 filter BEFORE returning. Never aggregate
     completions data that skipped this filter — MAJORNUM == 2 (second majors)
