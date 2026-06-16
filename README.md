@@ -3,9 +3,8 @@ title: IPEDS Completions + Labor
 emoji: 📊
 colorFrom: red
 colorTo: gray
-sdk: streamlit
-sdk_version: 1.41.0
-app_file: src/app_v2.py
+sdk: docker
+app_port: 7860
 pinned: false
 ---
 

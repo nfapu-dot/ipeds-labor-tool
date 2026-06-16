@@ -1,0 +1,19 @@
+# Keep the HF Docker image lean — exclude what the running app doesn't need.
+.git/
+.gitignore
+.dockerignore
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+.claude/
+.env
+.env.example
+# Raw completions CSVs (untracked anyway) — app reads data/processed/*.parquet.
+data/raw/c*_a.csv
+data/raw_labor/oews/*.zip
+# Generated workbooks (recreated at runtime).
+output/reports/*.xlsx
+# Tests + local launcher aren't needed in the deployed image.
+tests/
+*.command
