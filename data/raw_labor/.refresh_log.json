@@ -1,0 +1,17 @@
+{
+  "_comment": "Tracks the last-fetched date of each labor data source. Update via `python3 scripts/refresh_labor.py --mark-fetched <source>` after a manual download. Never edit by hand if you can avoid it.",
+  "sources": {
+    "census": {
+      "date": "2026-05-28"
+    },
+    "edd": {
+      "date": "2026-05-28"
+    },
+    "oews": {
+      "date": "2026-05-28"
+    },
+    "projections": {
+      "date": "2026-05-28"
+    }
+  }
+}

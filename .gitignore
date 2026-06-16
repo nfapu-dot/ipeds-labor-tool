@@ -1,0 +1,28 @@
+# Secrets — never commit
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.pytest_cache/
+
+# macOS
+.DS_Store
+
+# Local editor state
+.vscode/
+.idea/
+
+# Output workbooks are user-generated; check them in only if intentional
+output/reports/*.xlsx
+
+# Original BLS OEWS .zip downloads — kept locally as provenance, but the app
+# only reads the extracted .xlsx, so keep the (large) zips out of the repo.
+data/raw_labor/oews/*.zip
+
+# Claude Code local config
+.claude/

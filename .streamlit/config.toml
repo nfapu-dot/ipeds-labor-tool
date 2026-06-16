@@ -1,0 +1,14 @@
+# APU brand theme — colors per APU brand guidelines
+[theme]
+primaryColor = "#A8353A"        # Brick Red (Primary)
+backgroundColor = "#FFFFFF"      # Pure White
+secondaryBackgroundColor = "#EDEBE8"  # Bone White (sidebar / cards)
+textColor = "#000000"            # Pure Black
+font = "sans serif"
+
+[server]
+headless = false
+runOnSave = false
+
+[browser]
+gatherUsageStats = false

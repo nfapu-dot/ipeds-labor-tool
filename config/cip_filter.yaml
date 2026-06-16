@@ -1,0 +1,17 @@
+# CIP codes to include. Leave empty to include ALL CIP codes (produces large output).
+# Always quote codes so leading zeros are preserved (e.g., "01.0101").
+cip_codes: []
+# Example:
+# cip_codes:
+#   - "51.3801"   # Registered Nursing
+#   - "52.0201"   # Business Administration
+#   - "11.0701"   # Computer Science
+
+# Award levels to include. Leave empty to include ALL award levels.
+award_levels: []
+# Example:
+# award_levels:
+#   - 5    # Bachelor's
+#   - 7    # Master's
+#   - 9    # Doctorate - research
+#   - 10   # Doctorate - professional

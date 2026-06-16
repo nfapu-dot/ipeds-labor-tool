@@ -1,0 +1,7 @@
+# Academic years to process. Each year must have a matching hd{year} and c{year}_a file
+# in data/raw/ (either .csv or .xlsx).
+years: [2020, 2021, 2022, 2023, 2024]
+
+# CAGR endpoints (must be members of `years` above).
+cagr_start_year: 2020
+cagr_end_year: 2024
